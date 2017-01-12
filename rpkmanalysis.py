@@ -3,7 +3,13 @@
 from conifer import *
 import sys, os
 import argparse, subprocess
+"""
+Run rpkmanalysis.py as
 
+python rpkmanaysis.py 	--bamlist <path to folder containing input bams> \
+						--output <path to folder containing outputted text files containing RPKM data> \
+						--probes <path to bed file containing regions used for RPKM analysis
+"""
 
 class Namespace:
     def __init__(self, **kwargs):
