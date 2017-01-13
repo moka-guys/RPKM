@@ -37,8 +37,8 @@ class Bamprocess(object):
 		os.chdir(output)
 		# Bash script to append all the relevant columns from the outputted files.
 		cmd = """paste $(ls *deduplicated.txt) | awk 'BEGIN {FS=\"\t\"} {for(i=4;i<=NF;i+=4) {printf "%s ",$i}; print \"\"}'"""
-		f = open("summary.txt", "w")
-		subprocess.call(cmd, shell=True, stdout=f)
+		with open("summary.txt", "w") as f:
+			subprocess.call(cmd, shell=True, stdout=f)
 		# Add header to file
 		subprocess.call("""sed -i "1i $(ls *deduplicated.txt | tr '\n' ' ')" summary.txt""", shell=True)
 				
