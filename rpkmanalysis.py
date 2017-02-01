@@ -22,6 +22,9 @@ class Bamprocess(object):
 		print args.probes
 		print args.bamlist
 		print args.output
+		for folder in os.listdir("/home/dnanexus/in/bamfiles/"):
+			for file in os.listdir("/home/dnanexus/in/bamfiles/"+folder):
+				os.rename("/home/dnanexus/in/bamfiles/"+folder+"/"+file,"/home/dnanexus/"+file)
 
 		# Loop through the bam files in the folder
 		for file in os.listdir(args.bamlist):
@@ -33,6 +36,7 @@ class Bamprocess(object):
 				file = args.bamlist + file
 				# define the namespace object which acts as an argument for conifer
 				vals=Namespace(input=[file], output=[output], probes=[args.probes])
+				print vals
 				# Call the conifer function CF_bam2RPKM which defines RPKM values for each bam file
 				CF_bam2RPKM(vals)
 
@@ -49,26 +53,26 @@ class Bamprocess(object):
 		subprocess.call("""sed -i "1i $(ls *deduplicated.txt | tr '\n' ' ')" summary.txt""", shell=True)
 				
 
-#if __name__=="__main__":
-# Instantiate the class
-bamprocess = Bamprocess()
-#Tranlste command line inputs using argparse. Generate an argparse object which relates a set of arguments from a programme (i.e. rpkmanalysis.py) and relates it to a function (i.e. Bamprocess().RPKM()) 
-parser = argparse.ArgumentParser(prog="rpkmanalysis", description="This is a wrapper script for utilising the RPKM function CF_bam2RPKM from conifer.py")
-# Adde expected arguments
-parser.add_argument('--bamlist', help='provide path to the list of bam files for RPKM analysis')
-parser.add_argument('--output', help='provide path to output folder for data')
-parser.add_argument('--probes', help='provide path to probes bed file')
+if __name__=="__main__":
+	# Instantiate the class
+	bamprocess = Bamprocess()
+	#Tranlste command line inputs using argparse. Generate an argparse object which relates a set of arguments from a programme (i.e. rpkmanalysis.py) and relates it to a function (i.e. Bamprocess().RPKM()) 
+	parser = argparse.ArgumentParser(prog="rpkmanalysis", description="This is a wrapper script for utilising the RPKM function CF_bam2RPKM from conifer.py")
+	# Adde expected arguments
+	parser.add_argument('--bamlist', help='provide path to the list of bam files for RPKM analysis')
+	parser.add_argument('--output', help='provide path to output folder for data')
+	parser.add_argument('--probes', help='provide path to probes bed file')
 
-print "HELLO"
+	print "HELLO"
 
-# Define the function to apply the above arguments to eg. args.bamlist becomes a variable in bamprocess.RPKM
-parser.set_defaults(func=bamprocess.RPKM)
-# Assign the argparse object to a variable (args is essentially holding a dictionary of values)
-args = parser.parse_args()
-print args
-# Call the assigned function with the args variable as the argument
-args.func(args)
-#bamprocess.summary(output="/home/kevin/Documents/RPKManalysis/output")
+	# Define the function to apply the above arguments to eg. args.bamlist becomes a variable in bamprocess.RPKM
+	parser.set_defaults(func=bamprocess.RPKM)
+	# Assign the argparse object to a variable (args is essentially holding a dictionary of values)
+	args = parser.parse_args()
+	print args
+	# Call the assigned function with the args variable as the argument
+	args.func(args)
+	#bamprocess.summary(output="/home/kevin/Documents/RPKManalysis/output")
 
 
 	
