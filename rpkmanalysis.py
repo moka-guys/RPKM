@@ -18,6 +18,10 @@ class Namespace:
 class Bamprocess(object):
 
 	def RPKM(self, args):
+		print args.probes
+		print args.bamlist
+		print args.output
+		
 		# Loop through the bam files in the folder
 		for file in os.listdir(args.bamlist):
 			if file.endswith(".bam"):
@@ -26,7 +30,7 @@ class Bamprocess(object):
 				# Redefine the variable file so that it has the appropriate file path
 				file = args.bamlist + file
 				# define the namespace object which acts as an argument for conifer
-				vals=Namespace(input=[file], output=[output], probes=[probes])
+				vals=Namespace(input=[file], output=[output], probes=[args.probes])
 				# Call the conifer function CF_bam2RPKM which defines RPKM values for each bam file
 				CF_bam2RPKM(vals)
 
