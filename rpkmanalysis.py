@@ -24,7 +24,7 @@ class Bamprocess(object):
 		print args.output
 		for folder in os.listdir("/home/dnanexus/in/bamfiles/"):
 			for file in os.listdir("/home/dnanexus/in/bamfiles/"+folder):
-				os.rename("/home/dnanexus/in/bamfiles/"+folder+"/"+file,"/home/dnanexus/"+file)
+				os.rename("/home/dnanexus/in/bamfiles/"+folder+"/"+file,"/home/dnanexus/in/bamfiles/"+file)
 
 		# Loop through the bam files in the folder
 		for file in os.listdir(args.bamlist):
