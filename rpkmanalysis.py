@@ -26,7 +26,7 @@ class Bamprocess(object):
 				# Redefine the variable file so that it has the appropriate file path
 				file = args.bamlist + file
 				# define the namespace object which acts as an argument for conifer
-				vals=Namespace(input=[file], output=[output], probes=["/home/kevin/Documents/RPKManalysis/BRCAnextgene.bed"])
+				vals=Namespace(input=[file], output=[output], probes=[probes])
 				# Call the conifer function CF_bam2RPKM which defines RPKM values for each bam file
 				CF_bam2RPKM(vals)
 
