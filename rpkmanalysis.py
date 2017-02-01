@@ -59,6 +59,8 @@ parser.add_argument('--bamlist', help='provide path to the list of bam files for
 parser.add_argument('--output', help='provide path to output folder for data')
 parser.add_argument('--probes', help='provide path to probes bed file')
 
+print "HELLO"
+
 # Define the function to apply the above arguments to eg. args.bamlist becomes a variable in bamprocess.RPKM
 parser.set_defaults(func=bamprocess.RPKM)
 # Assign the argparse object to a variable (args is essentially holding a dictionary of values)
