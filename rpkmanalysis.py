@@ -25,7 +25,6 @@ class Bamprocess(object):
 
 		# Loop through the bam files in the input folder
 		for file in os.listdir(args.bamlist):
-			print file
 			if file.endswith(".bam"):
 				# Generate the output file for the given input file (removes bam extension and replaces it with txt)
 				output = os.path.join(args.output, '') + os.path.splitext(file)[0] + ".txt"
@@ -33,7 +32,6 @@ class Bamprocess(object):
 				file = args.bamlist + file
 				# define the namespace object which acts as an argument for conifer
 				vals=Namespace(input=[file], output=[output], probes=[args.probes])
-				print vals
 				# Call the conifer function CF_bam2RPKM which defines RPKM values for each bam file
 				CF_bam2RPKM(vals)
 
