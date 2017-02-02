@@ -18,15 +18,12 @@ class Namespace:
 class Bamprocess(object):
 
 	def RPKM(self, args):
-		print "HELLO"
-		print args.probes
-		print args.bamlist
-		print args.output
+		#loop through the folders within the input folder and each file up a level
 		for folder in os.listdir("/home/dnanexus/in/bamfiles/"):
 			for file in os.listdir("/home/dnanexus/in/bamfiles/"+folder):
 				os.rename("/home/dnanexus/in/bamfiles/"+folder+"/"+file,"/home/dnanexus/in/bamfiles/"+file)
 
-		# Loop through the bam files in the folder
+		# Loop through the bam files in the input folder
 		for file in os.listdir(args.bamlist):
 			print file
 			if file.endswith(".bam"):
@@ -62,8 +59,6 @@ if __name__=="__main__":
 	parser.add_argument('--bamlist', help='provide path to the list of bam files for RPKM analysis')
 	parser.add_argument('--output', help='provide path to output folder for data')
 	parser.add_argument('--probes', help='provide path to probes bed file')
-
-	print "HELLO"
 
 	# Define the function to apply the above arguments to eg. args.bamlist becomes a variable in bamprocess.RPKM
 	parser.set_defaults(func=bamprocess.RPKM)
