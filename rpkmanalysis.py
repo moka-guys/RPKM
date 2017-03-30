@@ -18,11 +18,6 @@ class Namespace:
 class Bamprocess(object):
 
 	def RPKM(self, args):
-		#loop through the folders within the input folder and each file up a level
-		for folder in os.listdir("/home/dnanexus/in/bamfiles/"):
-			for file in os.listdir("/home/dnanexus/in/bamfiles/"+folder):
-				os.rename("/home/dnanexus/in/bamfiles/"+folder+"/"+file,"/home/dnanexus/in/bamfiles/"+file)
-
 		# Loop through the bam files in the input folder
 		for file in os.listdir(args.bamlist):
 			if file.endswith(".bam"):
