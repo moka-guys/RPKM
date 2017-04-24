@@ -18,7 +18,7 @@ class Namespace:
 class Bamprocess(object):
 
 	def RPKM(self, args):
-		# Loop through the bam files in the folder
+		# Loop through the bam files in the input folder
 		for file in os.listdir(args.bamlist):
 			if file.endswith(".bam"):
 				# Generate the output file for the given input file (removes bam extension and replaces it with txt)
@@ -26,7 +26,7 @@ class Bamprocess(object):
 				# Redefine the variable file so that it has the appropriate file path
 				file = args.bamlist + file
 				# define the namespace object which acts as an argument for conifer
-				vals=Namespace(input=[file], output=[output], probes=["/home/kevin/Documents/RPKManalysis/BRCAnextgene.bed"])
+				vals=Namespace(input=[file], output=[output], probes=[args.probes])
 				# Call the conifer function CF_bam2RPKM which defines RPKM values for each bam file
 				CF_bam2RPKM(vals)
 
@@ -36,11 +36,11 @@ class Bamprocess(object):
 		# change directory to where outputted files are located
 		os.chdir(output)
 		# Bash script to append all the relevant columns from the outputted files.
-		cmd = """paste $(ls *deduplicated.txt) | awk 'BEGIN {FS=\"\t\"} {for(i=4;i<=NF;i+=4) {printf "%s ",$i}; print \"\"}'"""
+		cmd = """paste $(ls *.txt) | awk 'BEGIN {FS=\"\t\"} {for(i=4;i<=NF;i+=4) {printf "%s ",$i}; print \"\"}'"""
 		with open("summary.txt", "w") as f:
 			subprocess.call(cmd, shell=True, stdout=f)
 		# Add header to file
-		subprocess.call("""sed -i "1i $(ls *deduplicated.txt | tr '\n' ' ')" summary.txt""", shell=True)
+		subprocess.call("""sed -i "1i $(ls *.txt | tr '\n' ' ')" summary.txt""", shell=True)
 				
 
 if __name__=="__main__":
@@ -57,6 +57,7 @@ if __name__=="__main__":
 	parser.set_defaults(func=bamprocess.RPKM)
 	# Assign the argparse object to a variable (args is essentially holding a dictionary of values)
 	args = parser.parse_args()
+	print args
 	# Call the assigned function with the args variable as the argument
 	args.func(args)
 	#bamprocess.summary(output="/home/kevin/Documents/RPKManalysis/output")
